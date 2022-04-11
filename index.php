@@ -26,9 +26,12 @@ if (count($mangas) > 0) {
         $name = $manga['name'];
         $mangaId =  $manga['id'];
 
-        $search = $SEARCH_URL . $name;
+        $searchString = implode('+', explode(' ', $name));
 
-        $content = $curl->getContent($search);
+        $search = $SEARCH_URL . $searchString;
+
+        $content = $curl->getContent($search, ['Host: www.nettruyenmoi.com'], 1);
+
 
         if ($content) {
             $html = str_get_html($content);
@@ -50,9 +53,7 @@ if (count($mangas) > 0) {
                 
                 if ($linkStory) {
 
-                    sleep(2);
-
-                    $content = $curl->getContent($linkStory);
+                    $content = $curl->getContent($linkStory, ['Host: www.nettruyenmoi.com'], 1);
 
                     $html = str_get_html($content);
 
@@ -77,9 +78,7 @@ if (count($mangas) > 0) {
 
                             foreach ($links as $chapter => $link) {
 
-                                sleep(1);
-
-                                $content = $curl->getContent($link);
+                                $content = $curl->getContent($link, ['Host: www.nettruyenmoi.com'], 1);
 
                                 if ($content) {
 
@@ -141,7 +140,7 @@ if (count($mangas) > 0) {
         else {
             $insert = $db->query("insert into so1_fail_jobs (mid, des) values (?,?)", [$manga['id'], 'not found story in nettruyen']);
         }
-        sleep(2);
+        sleep(1);
     }
 
     echo '<pre>';
