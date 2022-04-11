@@ -87,8 +87,8 @@ class cURL
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		($this->path ? curl_setopt($ch, CURLOPT_COOKIEFILE, $this->path) : '');
 		($updateCookie ? curl_setopt($ch, CURLOPT_COOKIEJAR, $this->path) : '');
-		curl_setopt($ch, CURLOPT_TIMEOUT, 9999);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 9999);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 		$page = curl_exec($ch);
 		curl_close($ch);
